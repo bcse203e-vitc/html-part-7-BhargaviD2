@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FizzBuzz Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .wrapper {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .displayResult {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>FizzBuzz Challenge</h1>
+        <div>
+            <input type="number" id="fizzValue" placeholder="Fizz number (default: 3)">
+            <input type="number" id="buzzValue" placeholder="Buzz number (default: 5)">
+            <button onclick="executeFizzBuzz()">Run FizzBuzz</button>
+        </div>
+        <div class="displayResult" id="resultOutput"></div>
+    </div>
+
+    <script>
+        function executeFizzBuzz() {
+            const fizzValue = parseInt(document.getElementById('fizzValue').value) || 3;
+            const buzzValue = parseInt(document.getElementById('buzzValue').value) || 5;
+            let resultString = '';
+
+            for (let counter = 1; counter <= 50; counter++) {
+                if (counter % fizzValue === 0 && counter % buzzValue === 0) {
+                    resultString += 'FizzBuzz ';
+                } else if (counter % fizzValue === 0) {
+                    resultString += 'Fizz ';
+                } else if (counter % buzzValue === 0) {
+                    resultString += 'Buzz ';
+                } else {
+                    resultString += counter + ' ';
+                }
+            }
+
+            document.getElementById('resultOutput').textContent = resultString;
+        }
+    </script>
+</body>
+
+</html>
