@@ -1,1 +1,93 @@
+ <!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        input {
+            padding: 8px;
+            margin: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Guess the Number Game</h1>
+        <p>Try to guess the number between 1 and 100. You have 5 attempts!</p>
+        <input type="number" id="userInput" placeholder="Enter your guess">
+        <br>
+        <button onclick="validateGuess()">Submit Guess</button>
+        <button onclick="startNewGame()">New Game</button>
+        <p id="feedbackMessage"></p>
+        <p id="remainingTries"></p>
+    </div>
+
+    <script>
+        let secretNumber;
+        let maxTries;
+
+        function initializeGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            maxTries = 5;
+            document.getElementById('remainingTries').textContent = `Attempts remaining: ${maxTries}`;
+            document.getElementById('feedbackMessage').textContent = '';
+        }
+
+        function validateGuess() {
+            const playerGuess = parseInt(document.getElementById('userInput').value);
+            if (isNaN(playerGuess) || playerGuess < 1 || playerGuess > 100) {
+                document.getElementById('feedbackMessage').textContent = 'Please enter a valid number between 1 and 100';
+                return;
+            }
+
+            maxTries--;
+            document.getElementById('remainingTries').textContent = `Attempts remaining: ${maxTries}`;
+
+            if (playerGuess === secretNumber) {
+                document.getElementById('feedbackMessage').textContent = 'Congratulations! You guessed the correct number!';
+                document.getElementById('userInput').disabled = true;
+            } else if (maxTries === 0) {
+                document.getElementById('feedbackMessage').textContent = `Game Over! The number was ${secretNumber}`;
+                document.getElementById('userInput').disabled = true;
+            } else if (playerGuess < secretNumber) {
+                document.getElementById('feedbackMessage').textContent = 'Too low! Try again.';
+            } else {
+                document.getElementById('feedbackMessage').textContent = 'Too high! Try again.';
+            }
+        }
+
+        function startNewGame() {
+            document.getElementById('userInput').value = '';
+            document.getElementById('userInput').disabled = false;
+            initializeGame();
+        }
+
+        initializeGame();
+    </script>
+</body>
+
+</html>
